@@ -4,7 +4,6 @@ const encrypt = require('../lib/encrypt')
 
 async function add (body) {
   const emailRepeated = await User.findOne({ email: body.email })
-  console.log(`email que llega: ${emailRepeated}`)
   if (emailRepeated) throw createError(400, 'This email is already in use')
 
   body.password = await encrypt.crypt(body.password)
