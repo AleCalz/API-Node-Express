@@ -5,7 +5,7 @@ const encrypt = require('../lib/encrypt')
 async function add (body) {
   const emailRepeated = await User.findOne({ email: body.email })
   console.log(`email que llega: ${emailRepeated}`)
-  if (emailRepeated) throw createError(400, 'User email already exist')
+  if (emailRepeated) throw createError(400, 'This email is already in use')
 
   body.password = await encrypt.crypt(body.password)
 
@@ -20,7 +20,7 @@ async function getAll () {
 
 async function getbyId (id) {
   const idExist = await User.findOne({ _id: id })
-  if (!idExist) throw createError(400, "The user don't exist")
+  if (!idExist) throw createError(400, "That user doesn't exist")
 
   const userFound = await User.findById(id)
   return userFound
@@ -28,7 +28,7 @@ async function getbyId (id) {
 
 async function deletedById (id) {
   const idExist = await User.findOne({ _id: id })
-  if (!idExist) throw createError(400, "The user don't exist")
+  if (!idExist) throw createError(400, "That user doesn't exist")
 
   const userDeleted = await User.findByIdAndDelete(id)
   return userDeleted
@@ -36,7 +36,7 @@ async function deletedById (id) {
 
 async function updatedById (id, body) {
   const idExist = await User.findOne({ _id: id })
-  if (!idExist) throw createError(400, "The user don't exist")
+  if (!idExist) throw createError(400, "That user doesn't exist")
 
   body.updated_at = Date.now()
   const userUpdated = await User.findByIdAndUpdate(id, body, {

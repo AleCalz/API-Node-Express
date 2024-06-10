@@ -2,22 +2,6 @@ const express = require('express')
 const userUseCases = require('../usecases/user.usecases')
 const router = express.Router()
 
-router.get('/', async (req, res) => {
-  try {
-    const allUsers = await userUseCases.getAll()
-    res.json({
-      success: true,
-      data: { allUsers }
-    })
-  } catch (error) {
-    res.status(error.status || 500)
-    res.json({
-      success: false,
-      error: error.message
-    })
-  }
-})
-
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params
@@ -42,6 +26,22 @@ router.post('/', async (req, res) => {
     res.json({
       success: true,
       data: { newUser }
+    })
+  } catch (error) {
+    res.status(error.status || 500)
+    res.json({
+      success: false,
+      error: error.message
+    })
+  }
+})
+
+router.get('/', async (req, res) => {
+  try {
+    const allUsers = await userUseCases.getAll()
+    res.json({
+      success: true,
+      data: { allUsers }
     })
   } catch (error) {
     res.status(error.status || 500)

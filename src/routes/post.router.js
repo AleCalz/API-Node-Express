@@ -2,6 +2,23 @@ const postUseCase = require('../usecases/post.usecases')
 const express = require('express')
 const router = express.Router()
 
+router.post('/', async (request, response) => {
+  try {
+    const { body } = request.sea
+    const postAdded = await postUseCase.add(body)
+    response.json({
+      success: true,
+      data: { postAdded }
+    })
+  } catch (error) {
+    response.status(error.status || 500)
+    response.json({
+      success: false,
+      error: error.message
+    })
+  }
+})
+
 router.get('/', async (request, response) => {
   try {
     const allPost = await postUseCase.getAll()
@@ -18,30 +35,13 @@ router.get('/', async (request, response) => {
   }
 })
 
-router.get('/:id', async (request, response) => {
+router.get('/search', async (request, response) => {
   try {
-    const { id } = request.params
-    const postFound = await postUseCase.getById(id)
+    const { query } = request
+    const titleFound = await postUseCase.search(query)
     response.json({
       success: true,
-      data: { postFound }
-    })
-  } catch (error) {
-    response.status(error.status || 500)
-    response.json({
-      success: false,
-      error: error.message
-    })
-  }
-})
-
-router.post('/', async (request, response) => {
-  try {
-    const { body } = request
-    const postAdded = await postUseCase.add(body)
-    response.json({
-      success: true,
-      data: { postAdded }
+      data: { titleFound }
     })
   } catch (error) {
     response.status(error.status || 500)

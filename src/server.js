@@ -5,8 +5,8 @@ const app = express()
 
 app.use(express.json())
 
-app.use('/users', userRouter)
-app.use('/post', postRouter)
+app.use('/user', userRouter)
+app.use('/posts', postRouter)
 
 app.get('/', (request, response) => {
   response.json({
