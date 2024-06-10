@@ -27,7 +27,7 @@ async function search (query) {
 
 async function updatedById (id, body) {
   const postExist = await PostModel.findOne({ _id: id })
-  if (!postExist) throw createError(400, "That user doesn't exist")
+  if (!postExist) throw createError(400, "That post doesn't exist")
 
   body.updated_at = Date.now()
   const updatedPost = await PostModel.findByIdAndUpdate(id, body, {
@@ -39,7 +39,7 @@ async function updatedById (id, body) {
 
 async function deletedById (id) {
   const postExist = await PostModel.findOne({ _id: id })
-  if (!postExist) throw createError(400, "That user doesn't exist")
+  if (!postExist) throw createError(400, "That post doesn't exist")
 
   const deletedPost = await PostModel.findByIdAndDelete(id).populate('user')
   return deletedPost

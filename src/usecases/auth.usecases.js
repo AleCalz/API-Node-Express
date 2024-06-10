@@ -9,8 +9,8 @@ async function login (email, password) {
 
   const passValid = await encrypt.compare(password, userExist.password)
   if (!passValid) throw createError(401, 'Invalid Data')
-
-  const token = jwt.sign({ id: UserModel._id })
+  console.log('login carga payload: ', userExist)
+  const token = jwt.sign({ id: userExist._id })
   return token
 }
 

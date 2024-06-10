@@ -1,10 +1,11 @@
 const postUseCase = require('../usecases/post.usecases')
 const express = require('express')
 const router = express.Router()
+const auth = require('../middleware/auth.middleware')
 
-router.post('/', async (request, response) => {
+router.post('/', auth, async (request, response) => {
   try {
-    const { body } = request.sea
+    const { body } = request
     const postAdded = await postUseCase.add(body)
     response.json({
       success: true,
@@ -52,7 +53,7 @@ router.get('/search', async (request, response) => {
   }
 })
 
-router.delete('/:id', async (request, response) => {
+router.delete('/:id', auth, async (request, response) => {
   try {
     const { id } = request.params
     const postDeleted = await postUseCase.deletedById(id)
@@ -69,7 +70,7 @@ router.delete('/:id', async (request, response) => {
   }
 })
 
-router.patch('/:id', async (request, response) => {
+router.patch('/:id', auth, async (request, response) => {
   try {
     const { id } = request.params
     const { body } = request
