@@ -37,9 +37,13 @@ async function updatedById (id, body) {
   return updatedPost
 }
 
-async function deletedById (id) {
+async function deletedById (id, idUser) {
   const postExist = await PostModel.findOne({ _id: id })
   if (!postExist) throw createError(400, "That post doesn't exist")
+  // console.log('idExistente en el post: ', typeof JSON.stringify(postExist.user), JSON.stringify(postExist.user))
+  // console.log('id que llega al querer eliminar: ', typeof idUser, idUser)
+
+  if (JSON.stringify(postExist.user) !== JSON.stringify(idUser)) throw createError(400, 'You can not delete this post')
 
   const deletedPost = await PostModel.findByIdAndDelete(id).populate('user')
   return deletedPost
