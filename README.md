@@ -2,9 +2,8 @@
 ## Table of Contents
 1. [General Info](#general-info)
 2. [Technologies](#technologies)
-3. [Installation](#installation)
-5. [How to run](#how-to-run)
-5. [Endpoints](#endpoints)
+3. [How to run](#how-to-run)
+4. [Endpoints](#endpoints)
 
 ## General Info
 ***
