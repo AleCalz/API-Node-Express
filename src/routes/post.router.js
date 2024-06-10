@@ -6,6 +6,7 @@ const auth = require('../middleware/auth.middleware')
 router.post('/', auth, async (request, response) => {
   try {
     const { body } = request
+    body.user = request.user
     const postAdded = await postUseCase.add(body)
     response.json({
       success: true,

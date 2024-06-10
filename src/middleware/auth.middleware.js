@@ -21,7 +21,8 @@ async function auth (request, response, next) {
     console.log('middleware user: ', user)
 
     // Setteamos el dueño a la publicacion
-    request.body.user = user.id
+    // request.body.user = user.id
+    request.user = user.id
     next()
   } catch (error) {
     response.status(401)

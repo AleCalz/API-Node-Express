@@ -29,6 +29,12 @@ async function updatedById (id, body) {
   const postExist = await PostModel.findOne({ _id: id })
   if (!postExist) throw createError(400, "That post doesn't exist")
 
+  // si no existe el user desde el body
+  if (!body.user) body.user = postExist.user
+  console.log('userExistente en el post: ', postExist.user)
+  console.log('user que llega al querer actualizar: ', body.user)
+  if (JSON.stringify(body.user) !== JSON.stringify(postExist.user)) throw createError(400, 'ID IS DIFERENT : You can not update the user')
+
   body.updated_at = Date.now()
   const updatedPost = await PostModel.findByIdAndUpdate(id, body, {
     new: true
@@ -43,7 +49,9 @@ async function deletedById (id, idUser) {
   // console.log('idExistente en el post: ', typeof JSON.stringify(postExist.user), JSON.stringify(postExist.user))
   // console.log('id que llega al querer eliminar: ', typeof idUser, idUser)
 
-  if (JSON.stringify(postExist.user) !== JSON.stringify(idUser)) throw createError(400, 'You can not delete this post')
+  if (JSON.stringify(postExist.user) !== JSON.stringify(idUser)) {
+    throw createError(400, 'You can not delete this post')
+  }
 
   const deletedPost = await PostModel.findByIdAndDelete(id).populate('user')
   return deletedPost
