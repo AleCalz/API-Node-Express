@@ -57,7 +57,9 @@ router.get('/search', async (request, response) => {
 router.delete('/:id', auth, async (request, response) => {
   try {
     const { id } = request.params
-    const { user } = request.body
+    // const { user } = request.body
+    const { user } = request
+    console.log(request.body)
     const postDeleted = await postUseCase.deletedById(id, user)
     response.json({
       success: true,

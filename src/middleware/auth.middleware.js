@@ -7,18 +7,18 @@ revisar que nuestro token exista sea valido
 */
 async function auth (request, response, next) {
   try {
-    console.log('middleware try inicio')
+    // console.log('middleware try inicio')
     // verificamos que exista
     const token = request.headers.authorization
-    console.log('middleware token: ', token)
+    // console.log('middleware token: ', token)
     if (!token) throw createError(401, 'JWT is require')
 
     // Verificamos validez
     const payload = jwt.verify(token)
-    console.log('middleware payload: ', payload)
+    // console.log('middleware payload: ', payload)
 
     const user = await userUseCase.getbyId(payload.id)
-    console.log('middleware user: ', user)
+    // console.log('middleware user: ', user)
 
     // Setteamos el dueño a la publicacion
     // request.body.user = user.id
