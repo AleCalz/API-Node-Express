@@ -8,11 +8,7 @@ const options = {
     info: {
       title: 'API-NodeJS - Manejo de Ususarios',
       version: '1.0.0',
-      description: 'Retos de Backend',
-      license: {
-        name: 'MIT',
-        url: 'https://en.wikipedia.org/wiki/MIT_License'
-      }
+      description: 'API NodeJS para Manejo de Usuarios y Posts'
     },
     host: 'localhost:3000',
     basePath: '/',

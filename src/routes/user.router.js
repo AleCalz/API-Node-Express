@@ -40,12 +40,14 @@ const router = express.Router()
  *                        email:
  *                        password:
  *                          type: string
- *                        createdAt:
+ *                        created_at:
  *                          type: date
- *                        updatedAt:
+ *                        updated_at:
  *                          type: date
+ *                        __v:
+ *                          type: number
  *      500:
- *        description: Internal Server Error
+ *        description: 'Error: Internal Server Error'
  *
  */
 router.get('/:id', async (req, res) => {
@@ -102,18 +104,22 @@ router.get('/:id', async (req, res) => {
  *                    newUser:
  *                      type: object
  *                      properties:
- *                        id:
- *                          type: string
  *                        name:
+ *                          type: string
+ *                        profilePic:
  *                          type: string
  *                        email:
  *                          type: string
  *                        password:
  *                          type: string
- *                        createdAt:
+ *                        _id:
+ *                          type: string
+ *                        created_at:
  *                          type: date
- *                        updatedAt:
+ *                        updated_at:
  *                          type: date
+ *                        __v:
+ *                          type: number
  *      500:
  *        description: 'Error: Internal Server Error'
  *
@@ -141,7 +147,7 @@ router.post('/', async (req, res) => {
  *  get:
  *    description: Get all users
  *    tags:
- *      - users
+ *      - user
  *    responses:
  *      200:
  *        description: Success
@@ -165,14 +171,21 @@ router.post('/', async (req, res) => {
  *                            type: string
  *                          name:
  *                            type: string
+ *                          profilePic:
+ *                            type: string
  *                          email:
  *                            type: string
  *                          password:
  *                            type: string
- *                          createdAt:
+ *                          created_at:
  *                            type: date
- *                          updatedAt:
+ *                          updated_at:
  *                            type: date
+ *                          __v:
+ *                            type: number
+ *      500:
+ *        description: 'Error: Internal Server Error'
+ * 
  *
  */
 router.get('/', async (req, res) => {
@@ -191,6 +204,7 @@ router.get('/', async (req, res) => {
   }
 })
 
+
 /**
  * @openapi
  * /user/{id}:
@@ -207,6 +221,35 @@ router.get('/', async (req, res) => {
  *    responses:
  *      200:
  *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: object
+ *              properties:
+ *                success:
+ *                  type: boolean
+ *                data:
+ *                  type: object
+ *                  properties:
+ *                    userDeleted:
+ *                      type: object
+ *                      properties:
+ *                        _id:
+ *                          type: string
+ *                        name:
+ *                          type: string
+ *                        profilePic:
+ *                          type: string
+ *                        email:
+ *                          type: string
+ *                        password:
+ *                          type: string
+ *                        created_at:
+ *                          type: date
+ *                        updated_at:
+ *                          type: date
+ *                        __v:
+ *                          type: number
  *      500:
  *        description: Internal Server Error
  *
@@ -242,6 +285,18 @@ router.delete('/:id', async (req, res) => {
  *        description: User id
  *        required: true
  *        type: string
+ *    requestBody:
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            properties:
+ *              name:
+ *                type: string
+ *              email:
+ *                type: string
+ *              profilePic:
+ *                type: string
  *    responses:
  *      200:
  *        description: Success
@@ -262,14 +317,20 @@ router.delete('/:id', async (req, res) => {
  *                          type: string
  *                        name:
  *                          type: string
+ *                        profilePic:
+ *                          type: string
  *                        email:
  *                          type: string
  *                        password:
  *                          type: string
- *                        createdAt:
+ *                        created_at:
  *                          type: date
- *                        updatedAt:
+ *                        updated_at:
  *                          type: date
+ *                        __v:
+ *                          type: number
+ *      500:
+ *        description: 'Error: Internal Server Error'
  *
  */
 router.patch('/:id', async (req, res) => {
